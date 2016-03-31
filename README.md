@@ -19,7 +19,7 @@ Add the dependency:
 [![](https://jitpack.io/v/rafakob/PopupList.svg)](https://jitpack.io/#rafakob/PopupList)
 ```java
 dependencies {
-        compile 'com.github.rafakob:DrawMe:VERSION'
+        compile 'com.github.rafakob:PopupList:VERSION'
 }
 ```
 
