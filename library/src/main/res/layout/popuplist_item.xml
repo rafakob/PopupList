@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/popuplist_item_height"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:listDivider"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/popuplist_item_padding_end"
+        android:paddingLeft="@dimen/popuplist_item_padding_start"
+        android:paddingRight="@dimen/popuplist_item_padding_end"
+        android:paddingStart="@dimen/popuplist_item_padding_start">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/popuplist_item_icon_size"
+            android:layout_height="@dimen/popuplist_item_icon_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/popuplist_item_distance_icon_text"
+            android:layout_marginRight="@dimen/popuplist_item_distance_icon_text"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:lines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/popuplist_item_text_size"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="popuplist_item_distance_icon_text">20dp</dimen>
+    <dimen name="popuplist_item_height">48dp</dimen>
+    <dimen name="popuplist_item_icon_size">24dp</dimen>
+    <dimen name="popuplist_item_padding_end">20dp</dimen>
+    <dimen name="popuplist_item_padding_start">20dp</dimen>
+    <dimen name="popuplist_item_text_size">16sp</dimen>
+</resources>
