@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.rafakob.popuplist.OnPopupListItemListener;
+import com.rafakob.popuplist.PopupDirection;
+import com.rafakob.popuplist.PopupGravity;
 import com.rafakob.popuplist.PopupItem;
 import com.rafakob.popuplist.PopupList;
 
@@ -35,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
                         new PopupItem().withText("No!").withDivider(true)
                 )
                 // globals:
-                .withRelativePosition(PopupList.OUTSIDE_MIDDLE_CENTER)
+                .withPopupGravity(PopupGravity.CENTER_HORIZONTAL | PopupGravity.TOP)
+                .withPopupDirection(PopupDirection.UP | PopupDirection.LEFT)
                 .withIconGoneWhenNotDefined(true)
                 .withIconColorRes(R.color.colorPrimary)
                 .withDividerColorRes(R.color.colorAccent)

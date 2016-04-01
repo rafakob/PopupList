@@ -6,7 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
-import com.rafakob.popuplist.utils.Utils;
+import com.rafakob.popuplist.utils.ResUtils;
 
 public class IconHolder {
     private Drawable mDrawable;
@@ -39,7 +39,7 @@ public class IconHolder {
             if (colorHolder.getColorInt() != 0) {
                 icon.setColorFilter(colorHolder.getColorInt(), PorterDuff.Mode.SRC_IN);
             } else {
-                icon.setColorFilter(Utils.getColorFromRes(imageView.getContext(), colorHolder.getColorRes()), PorterDuff.Mode.SRC_IN);
+                icon.setColorFilter(ResUtils.getColorFromRes(imageView.getContext(), colorHolder.getColorRes()), PorterDuff.Mode.SRC_IN);
             }
         }
     }
