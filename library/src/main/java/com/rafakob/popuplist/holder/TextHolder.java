@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.widget.TextView;
 
-import com.rafakob.popuplist.utils.Utils;
+import com.rafakob.popuplist.utils.ResUtils;
 
 public class TextHolder {
     private String mText;
@@ -20,7 +20,7 @@ public class TextHolder {
 
     public void loadInto(@NonNull TextView textView) {
         if (mTextRes != -1) {
-            mText = Utils.getStringFromRes(textView.getContext(), mTextRes);
+            mText = ResUtils.getStringFromRes(textView.getContext(), mTextRes);
         }
 
         textView.setText(mText);
@@ -35,7 +35,7 @@ public class TextHolder {
             if (colorHolder.getColorInt() != 0) {
                 textView.setTextColor(colorHolder.getColorInt());
             } else {
-                textView.setTextColor(Utils.getColorFromRes(textView.getContext(), colorHolder.getColorRes()));
+                textView.setTextColor(ResUtils.getColorFromRes(textView.getContext(), colorHolder.getColorRes()));
             }
         }
     }

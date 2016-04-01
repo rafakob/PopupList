@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.rafakob.popuplist.utils.Utils;
+import com.rafakob.popuplist.utils.ResUtils;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class PopupAdapter extends ArrayAdapter<PopupItem> {
                 if (item.getBackgroundColorHolder().getColorInt() != 0) {
                     vh.content.setBackgroundColor(item.getBackgroundColorHolder().getColorInt());
                 } else {
-                    vh.content.setBackgroundColor(Utils.getColorFromRes(vh.content.getContext(), item.getBackgroundColorHolder().getColorRes()));
+                    vh.content.setBackgroundColor(ResUtils.getColorFromRes(vh.content.getContext(), item.getBackgroundColorHolder().getColorRes()));
                 }
             }
             convertView.setTag(vh);
@@ -73,7 +73,7 @@ public class PopupAdapter extends ArrayAdapter<PopupItem> {
                 if (item.getDividerColorHolder().getColorInt() != 0) {
                     vh.divider.setBackgroundColor(item.getDividerColorHolder().getColorInt());
                 } else {
-                    vh.divider.setBackgroundColor(Utils.getColorFromRes(vh.divider.getContext(), item.getDividerColorHolder().getColorRes()));
+                    vh.divider.setBackgroundColor(ResUtils.getColorFromRes(vh.divider.getContext(), item.getDividerColorHolder().getColorRes()));
                 }
             }
         } else {
