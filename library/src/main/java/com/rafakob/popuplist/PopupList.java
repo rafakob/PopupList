@@ -1,6 +1,7 @@
 package com.rafakob.popuplist;
 
 import android.content.Context;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.PopupWindow;
 
 import com.rafakob.popuplist.holder.ColorHolder;
 import com.rafakob.popuplist.utils.ListUtils;
+import com.rafakob.popuplist.utils.ResUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,27 +77,32 @@ public class PopupList {
 
             if (item.getTextAppearance() == -1 && mTextAppearance != -1) {
                 item.setTextAppearance(mTextAppearance);
-                continue;
             }
 
-            if (item.getBackgroundColorHolder() == null && (mBackgroundColor != 0 || mBackgroundColorRes != -1)) {
-                item.setBackgroundColorHolder(mBackgroundColor != 0 ? ColorHolder.fromColor(mBackgroundColor) : ColorHolder.fromColorRes(mBackgroundColorRes));
-            }
-
-            if (item.getTextColorHolder() == null && (mTextColor != 0 || mTextColorRes != -1)) {
-                item.setTextColorHolder(mTextColor != 0 ? ColorHolder.fromColor(mTextColor) : ColorHolder.fromColorRes(mTextColorRes));
-            }
-
-            if (item.getIconColorHolder() == null && (mIconColor != 0 || mIconColorRes != -1)) {
-                item.setIconColorHolder(mIconColor != 0 ? ColorHolder.fromColor(mIconColor) : ColorHolder.fromColorRes(mIconColorRes));
-            }
-
-            if (item.getDividerColorHolder() == null && (mDividerColor != 0 || mDividerColorRes != -1)) {
-                item.setDividerColorHolder(mDividerColor != 0 ? ColorHolder.fromColor(mDividerColor) : ColorHolder.fromColorRes(mDividerColorRes));
-            }
-
+            item.setBackgroundColorHolder(getColorHolder(item.getBackgroundColorHolder(), mBackgroundColor, mBackgroundColorRes, R.attr.popuplist_backgroundColor));
+            item.setTextColorHolder(getColorHolder(item.getTextColorHolder(), mTextColor, mTextColorRes, R.attr.popuplist_textColor));
+            item.setIconColorHolder(getColorHolder(item.getIconColorHolder(), mIconColor, mIconColorRes, R.attr.popuplist_iconColor));
+            item.setDividerColorHolder(getColorHolder(item.getDividerColorHolder(), mDividerColor, mDividerColorRes, R.attr.popuplist_dividerColor));
         }
         mAdapter = new PopupAdapter(mContext, items);
+    }
+
+    private ColorHolder getColorHolder(ColorHolder colorHolder, int colorInt, int colorRes, @AttrRes int colorAttr) {
+        if (colorHolder == null && (colorInt != 0 || colorRes != -1)) {
+            // color provided in PopupList Builder
+            return colorInt != 0 ? ColorHolder.fromColor(colorInt) : ColorHolder.fromColorRes(colorRes);
+        } else if (colorHolder == null) {
+            // color provided in theme
+            int color = ResUtils.getColorFromAttr(mContext, colorAttr);
+            if (color != 0) {
+                return ColorHolder.fromColor(color);
+            } else {
+                return null;
+            }
+        } else {
+            // color provided in PopupItem Builder
+            return colorHolder;
+        }
     }
 
     private void setupList() {
@@ -128,7 +135,6 @@ public class PopupList {
         }
         mPopup.show();
     }
-
 
     /**
      * PopupList builder class.

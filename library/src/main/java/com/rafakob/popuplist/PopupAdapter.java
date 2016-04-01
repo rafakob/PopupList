@@ -1,6 +1,7 @@
 package com.rafakob.popuplist;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,11 +58,15 @@ public class PopupAdapter extends ArrayAdapter<PopupItem> {
             }
         }
 
-        /* Text color */
-        if (item.getTextAppearance() != -1) {
-            // FIXME: 31.03.2016
-            vh.text.setTextAppearance(vh.text.getContext(), item.getTextAppearance());
-        } else if (item.getTextHolder() != null) {
+        /* Text appearance */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            vh.text.setTextAppearance(item.getTextAppearance() != -1 ? item.getTextAppearance() : android.R.style.TextAppearance);
+        } else {
+            vh.text.setTextAppearance(vh.text.getContext(), item.getTextAppearance() != -1 ? item.getTextAppearance() : android.R.style.TextAppearance);
+        }
+
+         /* Text color */
+        if (item.getTextHolder() != null) {
             item.getTextHolder().loadInto(vh.text);
             item.getTextHolder().color(vh.text, item.getTextColorHolder());
         }

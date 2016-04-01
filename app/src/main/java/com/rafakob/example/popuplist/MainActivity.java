@@ -29,21 +29,15 @@ public class MainActivity extends AppCompatActivity {
         mPopupList = new PopupList.Builder().withContext(this)
                 .withAnchorView(btn)
                 .addItems(
-                        new PopupItem().withText("W").withIcon(R.drawable.ic_vector_info),
-                        new PopupItem().withText("D").withIcon(R.drawable.ic_lock)
-                                .withDivider(true).withDividerColorRes(R.color.colorGreen),
-                        new PopupItem().withText("M").withIcon(R.drawable.ic_vector_cloud)
-                                .withTextColorRes(android.R.color.black).withIconColorRes(R.color.colorYellow),
-                        new PopupItem().withText("No!").withDivider(true)
+                        new PopupItem().withText("D").withIcon(R.drawable.ic_lock),
+                        new PopupItem().withText("D").withIcon(R.drawable.ic_lock),
+                        new PopupItem().withText("D").withIcon(R.drawable.ic_lock),
+                        new PopupItem().withText("M").withIcon(R.drawable.ic_vector_cloud),
+                        new PopupItem().withText("Teskt testowy!")
                 )
                 // globals:
-                .withPopupGravity(PopupGravity.CENTER_HORIZONTAL | PopupGravity.TOP)
-                .withPopupDirection(PopupDirection.UP | PopupDirection.LEFT)
-                .withIconGoneWhenNotDefined(true)
-                .withIconColorRes(R.color.colorPrimary)
-                .withDividerColorRes(R.color.colorAccent)
-                .withBackgroundColorRes(R.color.darkBackground)
-                .withTextColorRes(android.R.color.white)
+                .withPopupGravity(PopupGravity.CENTER_HORIZONTAL | PopupGravity.BOTTOM)
+                .withPopupDirection(PopupDirection.UP | PopupDirection.RIGHT)
                 .withOnPopupListItemListener(new OnPopupListItemListener() {
                     @Override
                     public void onPopupListItemClicked(PopupItem item) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="popuplist_backgroundColor" format="color"/>
+    <attr name="popuplist_iconColor" format="color"/>
+    <attr name="popuplist_dividerColor" format="color"/>
+    <attr name="popuplist_textColor" format="color"/>
+</resources>
+
+

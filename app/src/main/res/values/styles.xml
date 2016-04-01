@@ -1,15 +1,25 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--<item name="popuplist_backgroundColor">@color/colorPrimaryDark</item>-->
+        <!--<item name="popuplist_iconColor">@color/colorAccent</item>-->
+        <!--<item name="popuplist_dividerColor">@color/colorAccent</item>-->
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TextDivider">
+    <style name="TextDivider" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#DDFFFFFF</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="TextDividerBig" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

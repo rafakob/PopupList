@@ -1,6 +1,7 @@
 package com.rafakob.popuplist.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,6 +39,10 @@ public class ListUtils {
             sumHeight += itemView.getMeasuredHeight();
         }
         return sumHeight;
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     public static int getVerticalOffset(ListPopupWindow popupWindow, View anchorView, int position, int contentHeight) {
@@ -87,14 +92,14 @@ public class ListUtils {
     }
 
     private static int calculateVerticalShadow(ListPopupWindow popupWindow) {
-        Rect rect = new Rect();
-        popupWindow.getBackground().getPadding(rect);
-        return rect.top;
+//        Rect rect = new Rect();
+//        popupWindow.getBackground().getPadding(rect);
+        return 16;
     }
 
     private static int calculateHorizontalShadow(ListPopupWindow popupWindow) {
-        Rect rect = new Rect();
-        popupWindow.getBackground().getPadding(rect);
-        return rect.left;
+//        Rect rect = new Rect();
+//        popupWindow.getBackground().getPadding(rect);
+        return 16;
     }
 }

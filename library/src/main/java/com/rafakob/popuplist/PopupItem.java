@@ -154,6 +154,7 @@ public class PopupItem {
         mIconGoneWhenNotDefined = iconVisible;
     }
 
+    @StyleRes
     protected int getTextAppearance() {
         return mTextAppearance;
     }
