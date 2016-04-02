@@ -178,5 +178,32 @@ public class PopupItem {
     public String getTag() {
         return mTag;
     }
+
+    @Override
+    public String toString() {
+        return "PopupItem{" +
+                "mId=" + mId +
+                ", mTag='" + mTag + '\'' +
+                ", mIcon=" + mIcon +
+                ", mText=" + mText +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PopupItem popupItem = (PopupItem) o;
+
+        if (mId != popupItem.mId) return false;
+        return mText != null ? mText.equals(popupItem.mText) : popupItem.mText == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mId;
+    }
 }
 

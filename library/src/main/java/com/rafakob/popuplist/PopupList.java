@@ -129,6 +129,18 @@ public class PopupList {
     }
 
     public void show() {
+        show(mAnchorView);
+    }
+
+    public void show(View anchorView) {
+        if (anchorView == null) {
+            throw new NullPointerException("PopupList - Anchor view can not be null");
+        } else {
+            mAnchorView = anchorView;
+        }
+
+        mPopup.setAnchorView(mAnchorView);
+
         if (mPopupGravity != -1) {
             mPopup.setVerticalOffset(ListUtils.getVerticalOffset(mPopup, mAnchorView, mPopupGravity | mPopupDirection, mContentHeight));
             mPopup.setHorizontalOffset(ListUtils.getHorizontalOffset(mPopup, mAnchorView, mPopupGravity | mPopupDirection, mContentWidth));
