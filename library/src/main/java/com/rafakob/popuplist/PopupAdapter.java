@@ -14,14 +14,14 @@ import com.rafakob.popuplist.utils.ResUtils;
 
 import java.util.List;
 
-public class PopupAdapter extends ArrayAdapter<PopupItem> {
-    public PopupAdapter(Context context, List<PopupItem> items) {
+public class PopupAdapter extends ArrayAdapter<PopupListItem> {
+    public PopupAdapter(Context context, List<PopupListItem> items) {
         super(context, 0, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PopupItem item = getItem(position);
+        PopupListItem item = getItem(position);
         ViewHolder vh;
 
         if (convertView == null) {
