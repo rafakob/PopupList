@@ -21,28 +21,28 @@ import java.util.List;
 
 
 public class PopupList {
+    private final Context mContext;
+    private final OnPopupListItemListener mOnPopupListItemListener;
+    private final PopupWindow.OnDismissListener mOnDismissListener;
+    private final int mPopupGravity;
+    private final int mPopupDirection;
+    private final int mTextColor;
+    private final int mTextColorRes;
+    private final int mIconColor;
+    private final int mIconColorRes;
+    private final int mDividerColor;
+    private final int mDividerColorRes;
+    private final int mBackgroundColor;
+    private final int mBackgroundColorRes;
+    private final int mAnimationStyle;
+    private final int mTextAppearance;
+    private final boolean mIsModal;
+    private final boolean mIsIconGoneWhenNotDefined;
     private ListPopupWindow mPopup;
     private PopupAdapter mAdapter;
-    private Context mContext;
     private View mAnchorView;
     private int mContentWidth;
     private int mContentHeight;
-    private OnPopupListItemListener mOnPopupListItemListener;
-    private PopupWindow.OnDismissListener mOnDismissListener;
-    private int mPopupGravity;
-    private int mPopupDirection;
-    private int mTextColor;
-    private int mTextColorRes;
-    private int mIconColor;
-    private int mIconColorRes;
-    private int mDividerColor;
-    private int mDividerColorRes;
-    private int mBackgroundColor;
-    private int mBackgroundColorRes;
-    private int mAnimationStyle;
-    private int mTextAppearance;
-    private boolean mIsModal;
-    private boolean mIsIconGoneWhenNotDefined;
 
     private PopupList(Builder b) {
         mContext = b.context;
@@ -68,41 +68,17 @@ public class PopupList {
         setupList();
     }
 
-    private void setupAdapter(List<PopupItem> items) {
-        PopupItem item;
+    /**
+     * Iterate over
+     */
+    private void setupAdapter(List<PopupListItem> items) {
+        PopupListItem item;
         for (int i = 0; i < items.size(); i++) {
             item = items.get(i);
             item.setId(i);
             item.setIconGoneWhenNotDefined(mIsIconGoneWhenNotDefined);
-
-            if (item.getTextAppearance() == -1 && mTextAppearance != -1) {
-                item.setTextAppearance(mTextAppearance);
-            }
-
-            item.setBackgroundColorHolder(getColorHolder(item.getBackgroundColorHolder(), mBackgroundColor, mBackgroundColorRes, R.attr.popuplist_backgroundColor));
-            item.setTextColorHolder(getColorHolder(item.getTextColorHolder(), mTextColor, mTextColorRes, R.attr.popuplist_textColor));
-            item.setIconColorHolder(getColorHolder(item.getIconColorHolder(), mIconColor, mIconColorRes, R.attr.popuplist_iconColor));
-            item.setDividerColorHolder(getColorHolder(item.getDividerColorHolder(), mDividerColor, mDividerColorRes, R.attr.popuplist_dividerColor));
         }
         mAdapter = new PopupAdapter(mContext, items);
-    }
-
-    private ColorHolder getColorHolder(ColorHolder colorHolder, int colorInt, int colorRes, @AttrRes int colorAttr) {
-        if (colorHolder == null && (colorInt != 0 || colorRes != -1)) {
-            // color provided in PopupList Builder
-            return colorInt != 0 ? ColorHolder.fromColor(colorInt) : ColorHolder.fromColorRes(colorRes);
-        } else if (colorHolder == null) {
-            // color provided in theme
-            int color = ResUtils.getColorFromAttr(mContext, colorAttr);
-            if (color != 0) {
-                return ColorHolder.fromColor(color);
-            } else {
-                return null;
-            }
-        } else {
-            // color provided in PopupItem Builder
-            return colorHolder;
-        }
     }
 
     private void setupList() {
@@ -118,13 +94,29 @@ public class PopupList {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mOnPopupListItemListener != null)
-                    mOnPopupListItemListener.onPopupListItemClicked(mAdapter.getItem(position));
+                    mOnPopupListItemListener.onPopupListItemClicked(new PopupItem(mAdapter.getItem(position)));
                 mPopup.dismiss();
             }
         });
 
         if (mAnimationStyle != -1) {
             mPopup.setAnimationStyle(mAnimationStyle);
+        }
+    }
+
+    private void updateTheme() {
+        PopupListItem item;
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            item = mAdapter.getItem(i);
+
+            if (item.getTextAppearance() == -1 && mTextAppearance != -1 && item.getTextAppearance() != mTextAppearance) {
+                item.setTextAppearance(mTextAppearance);
+            }
+
+            item.setBackgroundColorHolder(getColorHolder(item.getBackgroundColorHolder(), mBackgroundColor, mBackgroundColorRes, R.attr.popuplist_backgroundColor));
+            item.setTextColorHolder(getColorHolder(item.getTextColorHolder(), mTextColor, mTextColorRes, R.attr.popuplist_textColor));
+            item.setIconColorHolder(getColorHolder(item.getIconColorHolder(), mIconColor, mIconColorRes, R.attr.popuplist_iconColor));
+            item.setDividerColorHolder(getColorHolder(item.getDividerColorHolder(), mDividerColor, mDividerColorRes, R.attr.popuplist_dividerColor));
         }
     }
 
@@ -145,7 +137,26 @@ public class PopupList {
             mPopup.setVerticalOffset(ListUtils.getVerticalOffset(mPopup, mAnchorView, mPopupGravity | mPopupDirection, mContentHeight));
             mPopup.setHorizontalOffset(ListUtils.getHorizontalOffset(mPopup, mAnchorView, mPopupGravity | mPopupDirection, mContentWidth));
         }
+        updateTheme();
         mPopup.show();
+    }
+
+    private ColorHolder getColorHolder(ColorHolder colorHolder, int colorInt, int colorRes, @AttrRes int colorAttr) {
+        if (colorHolder == null && (colorInt != 0 || colorRes != -1)) {
+            // color provided in PopupList Builder
+            return colorInt != 0 ? ColorHolder.fromColor(colorInt) : ColorHolder.fromColorRes(colorRes);
+        } else if (colorHolder == null) {
+            // color provided in theme
+            int color = ResUtils.getColorFromAttr(mContext, colorAttr);
+            if (color != 0) {
+                return ColorHolder.fromColor(color);
+            } else {
+                return null;
+            }
+        } else {
+            // color provided in PopupListItem Builder
+            return colorHolder;
+        }
     }
 
     /**
@@ -153,7 +164,7 @@ public class PopupList {
      */
     public static final class Builder {
         private Context context;
-        private List<PopupItem> items = new ArrayList<>();
+        private List<PopupListItem> items = new ArrayList<>();
         private View anchorView;
         private OnPopupListItemListener onPopupListItemListener;
         private PopupWindow.OnDismissListener onDismissListener;
@@ -266,7 +277,7 @@ public class PopupList {
         }
 
 
-        public Builder addItems(@NonNull PopupItem... popupListItems) {
+        public Builder addItems(@NonNull PopupListItem... popupListItems) {
             items = Arrays.asList(popupListItems);
             return this;
         }
